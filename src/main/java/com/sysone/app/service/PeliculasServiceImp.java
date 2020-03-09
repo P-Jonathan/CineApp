@@ -4,10 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 import com.sysone.app.model.Pelicula;
 import com.sysone.app.util.Utileria;
 
+@Service
 public class PeliculasServiceImp implements IPeliculasService {
 
 	private List<Pelicula> peliculas;
@@ -83,5 +87,16 @@ public class PeliculasServiceImp implements IPeliculasService {
 	@Override
 	public List<Pelicula> buscarTodas() {
 		return peliculas;
+	}
+
+	@Override
+	public Pelicula buscarPorId(int idPelicula) {
+		Optional<Pelicula> optPelicula = peliculas.stream().filter(p -> p.getId() == idPelicula).findFirst();
+
+		if (optPelicula.isPresent()) {
+			return optPelicula.get();
+		} else {
+			return null;
+		}
 	}
 }
