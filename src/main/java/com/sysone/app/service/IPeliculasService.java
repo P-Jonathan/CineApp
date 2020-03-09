@@ -5,6 +5,7 @@ import java.util.List;
 import com.sysone.app.model.Pelicula;
 
 public interface IPeliculasService {
-	List<Pelicula> buscarTodas();
+	List<Pelicula> findAll();
 	Pelicula buscarPorId(int idPelicula);
+	void insertar(Pelicula pelicula);
 }

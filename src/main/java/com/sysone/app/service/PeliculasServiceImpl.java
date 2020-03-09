@@ -12,12 +12,12 @@ import com.sysone.app.model.Pelicula;
 import com.sysone.app.util.Utileria;
 
 @Service
-public class PeliculasServiceImp implements IPeliculasService {
+public class PeliculasServiceImpl implements IPeliculasService {
 
 	private List<Pelicula> peliculas;
 	private SimpleDateFormat formater;
 
-	public PeliculasServiceImp() {
+	public PeliculasServiceImpl() {
 		peliculas = new LinkedList<Pelicula>();
 		formater = new SimpleDateFormat("dd-MM-yyyy");
 		List<String> fechas = Utileria.getNextDays(7);
@@ -39,7 +39,7 @@ public class PeliculasServiceImp implements IPeliculasService {
 			pelicula2.setDuracion(145);
 			pelicula2.setClasificacion("R");
 			pelicula2.setGenero("Accion");
-			pelicula1.setFechaEstreno(formater.parse(fechas.get(1)));
+			pelicula2.setFechaEstreno(formater.parse(fechas.get(1)));
 			pelicula2.setImagen("estreno2.png");
 			pelicula2.setEstatus("Activa");
 
@@ -49,7 +49,7 @@ public class PeliculasServiceImp implements IPeliculasService {
 			pelicula3.setDuracion(240);
 			pelicula3.setClasificacion("B");
 			pelicula3.setGenero("Suspenso");
-			pelicula1.setFechaEstreno(formater.parse(fechas.get(2)));
+			pelicula3.setFechaEstreno(formater.parse(fechas.get(2)));
 			pelicula3.setImagen("estreno3.png");
 			pelicula3.setEstatus("activa");
 
@@ -59,7 +59,7 @@ public class PeliculasServiceImp implements IPeliculasService {
 			pelicula4.setDuracion(110);
 			pelicula4.setClasificacion("B");
 			pelicula4.setGenero("Accion");
-			pelicula1.setFechaEstreno(formater.parse(fechas.get(3)));
+			pelicula4.setFechaEstreno(formater.parse(fechas.get(3)));
 			pelicula4.setImagen("estreno4.png");
 			pelicula4.setEstatus("activa");
 
@@ -69,7 +69,7 @@ public class PeliculasServiceImp implements IPeliculasService {
 			pelicula5.setDuracion(125);
 			pelicula5.setClasificacion("B");
 			pelicula5.setGenero("Suspenso");
-			pelicula1.setFechaEstreno(formater.parse(fechas.get(4)));
+			pelicula5.setFechaEstreno(formater.parse(fechas.get(4)));
 			pelicula5.setImagen("estreno5.png");
 			pelicula5.setEstatus("Activa");
 
@@ -85,7 +85,7 @@ public class PeliculasServiceImp implements IPeliculasService {
 	}
 
 	@Override
-	public List<Pelicula> buscarTodas() {
+	public List<Pelicula> findAll() {
 		return peliculas;
 	}
 
@@ -98,5 +98,11 @@ public class PeliculasServiceImp implements IPeliculasService {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void insertar(Pelicula pelicula) {
+		pelicula.setId(peliculas.size() + 1);
+		peliculas.add(pelicula);
 	}
 }

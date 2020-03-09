@@ -29,7 +29,7 @@ public class HomeController {
 		List<String> fechas = Utileria.getNextDays(7);
 		model.addAttribute("fechas", fechas);
 		model.addAttribute("fechaBusqueda", formater.format(new Date()));
-		model.addAttribute("peliculas", peliculasService.buscarTodas());
+		model.addAttribute("peliculas", peliculasService.findAll());
 
 		return "home";
 	}
@@ -37,7 +37,7 @@ public class HomeController {
 	@PostMapping("/search")
 	public String search(Model model, @RequestParam("fecha") String fecha) throws ParseException {
 		List<String> fechas = Utileria.getNextDays(7);
-		List<Pelicula> peliculas = peliculasService.buscarTodas();
+		List<Pelicula> peliculas = peliculasService.findAll();
 
 		model.addAttribute("fechas", fechas);
 		model.addAttribute("fechaBusqueda", fecha);
