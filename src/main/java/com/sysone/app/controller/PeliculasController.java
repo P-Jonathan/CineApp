@@ -27,25 +27,25 @@ public class PeliculasController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("peliculas", peliculasService.findAll());
-		
+
 		return "peliculas/listPeliculas";
 	}
-	
+
 	@GetMapping("/create")
 	public String create() {
 		return "peliculas/formPelicula";
 	}
 
 	@PostMapping("/save")
-	public String save(Pelicula pelicula, BindingResult bResult) {
+	public String save(Model model, Pelicula pelicula, BindingResult bResult) {
 		if (bResult.hasErrors()) {
 			System.out.println("Error: ");
 			bResult.getAllErrors().stream().forEach(err -> System.err.println(err.getDefaultMessage()));
 			return "peliculas/formPelicula";
 		}
-
 		peliculasService.insertar(pelicula);
-		return "home";
+		model.addAttribute("peliculas", peliculasService.findAll());
+		return "peliculas/listPeliculas";
 	}
 
 	@InitBinder
