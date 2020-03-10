@@ -19,46 +19,46 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sysone.app.model.Pelicula;
-import com.sysone.app.service.IPeliculasService;
+import com.sysone.app.model.Banner;
+import com.sysone.app.service.IBannerService;
 import com.sysone.app.util.Utileria;
 
 @Controller
-@RequestMapping("/peliculas")
-public class PeliculasController {
+@RequestMapping("/banners")
+public class BannerController {
 
 	@Autowired
-	private IPeliculasService peliculasService;
+	private IBannerService bannerService;
 
 	@GetMapping("/")
-	public String index(Model model) {
-		model.addAttribute("peliculas", peliculasService.findAll());
-
-		return "peliculas/listPeliculas";
+	public String banners(Model model) {
+		model.addAttribute("banners", bannerService.findAll());
+		return "banners/listBanners";
 	}
 
 	@GetMapping("/create")
 	public String create() {
-		return "peliculas/formPelicula";
+		return "banners/formBanner";
 	}
 
 	@PostMapping("/save")
-	public String save(Pelicula pelicula, BindingResult bResult, RedirectAttributes rAttributes,
+	public String save(Banner banner, BindingResult bResult, RedirectAttributes rAttributes,
 			@RequestParam("archivoImagen") MultipartFile multipartFile, HttpServletRequest request) {
+
 		if (bResult.hasErrors()) {
-			System.out.println("Error: ");
-			bResult.getAllErrors().stream().forEach(err -> System.err.println(err.getDefaultMessage()));
-			return "peliculas/formPelicula";
+			System.err.println("Error al capturar banner: ");
+			bResult.getAllErrors().forEach(err -> System.err.println(err.getDefaultMessage()));
+			return "banners/formBanner";
 		}
 
 		if (!multipartFile.isEmpty()) {
-			String nombreImagen = Utileria.guardarArchivo(multipartFile, request);
-			pelicula.setImagen(nombreImagen);
+			String nombreArchivo = Utileria.guardarArchivo(multipartFile, request);
+			banner.setArchivo(nombreArchivo);
 		}
 
-		peliculasService.insertar(pelicula);
-		rAttributes.addFlashAttribute("message", "La pelicula " + pelicula.getTitulo() + " se añadio correctamente.");
-		return "redirect:/peliculas/";
+		bannerService.guardar(banner);
+		rAttributes.addFlashAttribute("message", "El banner " + banner.getTitulo() + " se añadio correctamente.");
+		return "redirect:/banners/";
 	}
 
 	@InitBinder

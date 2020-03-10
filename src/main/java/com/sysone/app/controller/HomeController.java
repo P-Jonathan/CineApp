@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sysone.app.model.Banner;
 import com.sysone.app.model.Pelicula;
+import com.sysone.app.service.IBannerService;
 import com.sysone.app.service.IPeliculasService;
 import com.sysone.app.util.Utileria;
 
@@ -22,6 +24,8 @@ public class HomeController {
 
 	@Autowired
 	private IPeliculasService peliculasService;
+	@Autowired
+	private IBannerService bannerService;
 	private SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");;
 
 	@GetMapping("/")
@@ -29,7 +33,10 @@ public class HomeController {
 		List<String> fechas = Utileria.getNextDays(7);
 		model.addAttribute("fechas", fechas);
 		model.addAttribute("fechaBusqueda", formater.format(new Date()));
-		model.addAttribute("peliculas", peliculasService.findAll());
+		List<Pelicula> peliculas = peliculasService.findAll();
+		List<Banner> banners = bannerService.findAll();
+		model.addAttribute("peliculas", peliculas.size() > 0 ? peliculas : null);
+		model.addAttribute("banners", banners.size() > 0 ? banners : null);
 
 		return "home";
 	}
@@ -40,7 +47,7 @@ public class HomeController {
 		List<Pelicula> peliculas = peliculasService.findAll();
 
 		System.out.println("La fecha es: " + fecha);
-		
+
 		model.addAttribute("fechas", fechas);
 		model.addAttribute("fechaBusqueda", fecha);
 		model.addAttribute("peliculas", peliculas);
@@ -60,7 +67,7 @@ public class HomeController {
 
 		return "detalles";
 	}
-	
+
 	@GetMapping("/detalles/{id}")
 	public String getDetalles(Model model, @PathVariable("id") int idPelicula) {
 		Pelicula pelicula = peliculasService.buscarPorId(idPelicula);

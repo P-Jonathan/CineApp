@@ -14,6 +14,7 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/peliculas/">Peliculas</a></li>
+				<li><a href="${pageContext.request.contextPath}/banners/">Banners</a></li>
 				<li><a href="#">Acerca</a></li>
 				<li><a href="#">Login</a></li>
 			</ul>

@@ -35,7 +35,7 @@ public class Utileria {
 		return nextDays;
 	}
 
-	public static String guardarImagen(MultipartFile multipartFile, HttpServletRequest request) {
+	public static String guardarArchivo(MultipartFile multipartFile, HttpServletRequest request) {
 		String nombreOriginal = multipartFile.getOriginalFilename();
 		String nombreFinal = randomAlphaNumeric(nombreOriginal.length()) + "-" + nombreOriginal;
 		nombreFinal = nombreFinal.replace(" ", "-").toLowerCase();

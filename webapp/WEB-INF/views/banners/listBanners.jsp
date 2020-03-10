@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<spring:url value="/resources/" var="urlPublic" />
+<spring:url value="/resources" var="urlPublic" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Listado de Peliculas</title>
+<title>Listado de imagenes del banner</title>
 
 <link href="${urlPublic}/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -22,48 +22,36 @@
 
 <body>
 
-
 	<jsp:include page="./../includes/menu.jsp" />
-
 
 	<div class="container theme-showcase" role="main">
 
 		<jsp:include page="./../includes/alertMessages.jsp"></jsp:include>
 
-		<h3>Listado de Peliculas</h3>
+		<h3>Listado de imagenes del Banner</h3>
 
-		<a href="${pageContext.request.contextPath}/peliculas/create"
-			class="btn btn-success" role="button" title="Nueva Pelicula">Nueva</a><br>
+		<a href="${pageContext.request.contextPath}/banners/create"
+			class="btn btn-success" role="button" title="Nuevo Banner">Nuevo</a><br>
 		<br>
 
 		<div class="table-responsive">
 			<table class="table table-hover table-striped table-bordered">
 				<tr>
+					<th>Id</th>
 					<th>Titulo</th>
-					<th>Genero</th>
-					<th>Clasificacion</th>
-					<th>Duracion</th>
-					<th>Fecha Estreno</th>
+					<th>Fecha Publicacion</th>
+					<th>Nombre Archivo</th>
 					<th>Estatus</th>
 					<th>Opciones</th>
 				</tr>
-				<c:forEach items="${peliculas}" var="pelicula">
+				<c:forEach items="${banners}" var="banner">
 					<tr>
-						<td>${pelicula.titulo}</td>
-						<td>${pelicula.genero}</td>
-						<td>${pelicula.clasificacion}</td>
-						<td>${pelicula.duracion}</td>
-						<td><fmt:formatDate value="${pelicula.fechaEstreno}"
+						<td>${banner.id}</td>
+						<td>${banner.titulo}</td>
+						<td><fmt:formatDate value="${banner.fecha}"
 								pattern="dd-MM-yyyy" /></td>
-						<td><c:choose>
-								<c:when
-									test="${pelicula.estatus == 'Activa' || pelicula.estatus == 'activa'}">
-									<span class="label label-success">${pelicula.estatus}</span>
-								</c:when>
-								<c:otherwise>
-									<span class="label label-danger">${pelicula.estatus}</span>
-								</c:otherwise>
-							</c:choose></td>
+						<td>${banner.archivo}</td>
+						<td><span class="label label-success">${banner.estatus}</span></td>
 						<td><a href="#" class="btn btn-success btn-sm" role="button"
 							title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
 							<a href="#" class="btn btn-danger btn-sm" role="button"
@@ -73,7 +61,6 @@
 				</c:forEach>
 			</table>
 		</div>
-
 		<hr class="featurette-divider">
 
 		<jsp:include page="./../includes/footer.jsp" />
@@ -87,16 +74,5 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="${urlPublic}/bootstrap/js/bootstrap.min.js"></script>
-	<script>
-
-	setTimeout(() => {
-		const alerts = document.querySelectorAll(".pelicula-insert-alert");
-		const messages = document.querySelector("#messages");
-		for(const alert of alerts) {
-		    messages.removeChild(alert);
-		}
-	}, 5000);
-	
-	</script>
 </body>
 </html>
