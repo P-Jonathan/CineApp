@@ -39,6 +39,8 @@ public class HomeController {
 		List<String> fechas = Utileria.getNextDays(7);
 		List<Pelicula> peliculas = peliculasService.findAll();
 
+		System.out.println("La fecha es: " + fecha);
+		
 		model.addAttribute("fechas", fechas);
 		model.addAttribute("fechaBusqueda", fecha);
 		model.addAttribute("peliculas", peliculas);

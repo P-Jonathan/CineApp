@@ -27,17 +27,17 @@
 
 
 	<div class="container theme-showcase" role="main">
-		<c:choose>
-			<c:when test="${message != null}">
-				<div class="alert alert-success" role="alert">
+		<c:if test="${message != null}">
+			<div id="messages">
+				<div class="alert alert-success pelicula-insert-alert" role="alert">
 					<strong>${message}</strong>
 					<button type="button" class="close" data-dismiss="alert"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-			</c:when>
-		</c:choose>
+			</div>
+		</c:if>
 
 		<h3>Listado de Peliculas</h3>
 
@@ -96,5 +96,16 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="${urlPublic}/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+
+	setTimeout(() => {
+		const alerts = document.querySelectorAll(".pelicula-insert-alert");
+		const messages = document.querySelector("#messages");
+		for(const alert of alerts) {
+		    messages.removeChild(alert);
+		}
+	}, 5000);
+	
+	</script>
 </body>
 </html>
