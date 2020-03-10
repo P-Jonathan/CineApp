@@ -25,7 +25,19 @@
 
 	<jsp:include page="./../includes/menu.jsp" />
 
+
 	<div class="container theme-showcase" role="main">
+		<c:choose>
+			<c:when test="${message != null}">
+				<div class="alert alert-success" role="alert">
+					<strong>${message}</strong>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</c:when>
+		</c:choose>
 
 		<h3>Listado de Peliculas</h3>
 

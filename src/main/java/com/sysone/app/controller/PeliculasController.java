@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sysone.app.model.Pelicula;
 import com.sysone.app.service.IPeliculasService;
@@ -37,15 +38,15 @@ public class PeliculasController {
 	}
 
 	@PostMapping("/save")
-	public String save(Model model, Pelicula pelicula, BindingResult bResult) {
+	public String save(Pelicula pelicula, BindingResult bResult, RedirectAttributes rAttributes) {
 		if (bResult.hasErrors()) {
 			System.out.println("Error: ");
 			bResult.getAllErrors().stream().forEach(err -> System.err.println(err.getDefaultMessage()));
 			return "peliculas/formPelicula";
 		}
 		peliculasService.insertar(pelicula);
-		model.addAttribute("peliculas", peliculasService.findAll());
-		return "peliculas/listPeliculas";
+		rAttributes.addFlashAttribute("message", "La pelicula " + pelicula.getTitulo() + " se añadio correctamente.");
+		return "redirect:/peliculas/";
 	}
 
 	@InitBinder
