@@ -15,6 +15,7 @@ import com.sysone.app.util.Utileria;
 public class PeliculasServiceImpl implements IPeliculasService {
 
 	private List<Pelicula> peliculas;
+	private List<String> generos;
 	private SimpleDateFormat formater;
 
 	public PeliculasServiceImpl() {
@@ -82,6 +83,17 @@ public class PeliculasServiceImpl implements IPeliculasService {
 		} catch (ParseException e) {
 			e.printStackTrace(System.out);
 		}
+		
+		generos = new LinkedList<String>();
+		generos.add("Accion");
+		generos.add("Aventura");
+		generos.add("Clasicas");
+		generos.add("Comedia Romantica");
+		generos.add("Drama");
+		generos.add("Terror");
+		generos.add("Infantil");
+		generos.add("Accion y Aventura");
+		generos.add("Romantica");
 	}
 
 	@Override
@@ -104,5 +116,10 @@ public class PeliculasServiceImpl implements IPeliculasService {
 	public void insertar(Pelicula pelicula) {
 		pelicula.setId(peliculas.size() + 1);
 		peliculas.add(pelicula);
+	}
+	
+	@Override
+	public List<String> buscarGeneros() {
+		return generos;
 	}
 }

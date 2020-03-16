@@ -11,6 +11,7 @@ public class Pelicula {
 	private String imagen = "cinema.png"; // Imagen por default
 	private Date fechaEstreno;
 	private String estatus = "activa";
+	private Detalle detalle;
 
 	public int getId() {
 		return id;
@@ -76,10 +77,18 @@ public class Pelicula {
 		this.estatus = estatus;
 	}
 
+	public Detalle getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(Detalle detalle) {
+		this.detalle = detalle;
+	}
+
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", clasificacion="
 				+ clasificacion + ", genero=" + genero + ", imagen=" + imagen + ", fechaEstreno=" + fechaEstreno
-				+ ", estatus=" + estatus + "]";
+				+ ", estatus=" + estatus + ", detalle=" + detalle + "]";
 	}
 }

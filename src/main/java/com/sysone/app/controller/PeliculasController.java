@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,12 +39,13 @@ public class PeliculasController {
 	}
 
 	@GetMapping("/create")
-	public String create() {
+	public String create(@ModelAttribute Pelicula pelicula, Model model) {
+		model.addAttribute("generos", peliculasService.buscarGeneros());
 		return "peliculas/formPelicula";
 	}
 
 	@PostMapping("/save")
-	public String save(Pelicula pelicula, BindingResult bResult, RedirectAttributes rAttributes,
+	public String save(@ModelAttribute Pelicula pelicula, BindingResult bResult, RedirectAttributes rAttributes,
 			@RequestParam("archivoImagen") MultipartFile multipartFile, HttpServletRequest request) {
 		if (bResult.hasErrors()) {
 			System.out.println("Error: ");

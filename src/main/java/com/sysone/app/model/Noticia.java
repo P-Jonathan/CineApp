@@ -2,8 +2,21 @@ package com.sysone.app.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Noticias")
 public class Noticia {
-	private int idNoticia;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
 	private String titulo;
 	private Date fecha;
 	private String estatus;
@@ -22,11 +35,11 @@ public class Noticia {
 	}
 
 	public int getIdNoticia() {
-		return idNoticia;
+		return id;
 	}
 
 	public void setIdNoticia(int idNoticia) {
-		this.idNoticia = idNoticia;
+		this.id = idNoticia;
 	}
 
 	public String getTitulo() {
@@ -63,7 +76,7 @@ public class Noticia {
 
 	@Override
 	public String toString() {
-		return "Noticia [idNoticia=" + idNoticia + ", titulo=" + titulo + ", fecha=" + fecha + ", estatus=" + estatus
+		return "Noticia [idNoticia=" + id + ", titulo=" + titulo + ", fecha=" + fecha + ", estatus=" + estatus
 				+ ", detalle=" + detalle + "]";
 	}
 }
