@@ -34,8 +34,9 @@
 			</h3>
 		</div>
 
-		<form:form action="${pageContext.request.contextPath}/peliculas/save"
-			method="POST" enctype="multipart/form-data" modelAttribute="pelicula">
+		<form:form action="${pageContext.request.contextPath}/peliculas/${action}"
+			method="POST" enctype="multipart/form-data"
+			modelAttribute="pelicula">
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="form-group">
@@ -77,7 +78,7 @@
 						<label for="genero" class="control-label">Genero</label>
 						<form:select id="genero" path="genero" class="form-control">
 							<c:forEach items="${generos}" var="genero">
-								<form:option value="Accion">${genero}</form:option>
+								<form:option value="${genero}">${genero}</form:option>
 							</c:forEach>
 						</form:select>
 					</div>

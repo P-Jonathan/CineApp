@@ -5,11 +5,15 @@ import java.util.List;
 import com.sysone.app.model.Noticia;
 
 public interface INoticiasService {
-	List<Noticia> listar();
+	List<Noticia> findAll();
+
+	Noticia findById(int id);
 	
-	void guardar(Noticia noticia);
+	void save(Noticia noticia);
 	
-	void actualizar(Noticia noticia);
+	void update(Noticia noticia);
 	
-	void eliminar(Noticia noticia);
+	void delete(Noticia noticia);
+	
+	void deleteByID(int idNoticia);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,20 +32,21 @@ public class HorariosController {
     private IPeliculasService peliculasService;
 
     @GetMapping("/")
-    public String listarHorarios(Model model) {
+    public String list(Model model) {
         model.addAttribute("horarios", horariosService.findAll());
         return "horarios/listHorarios";
     }
 
     @GetMapping("/create")
-    public String crear(@ModelAttribute Horario horario, Model model) {
+    public String create(@ModelAttribute Horario horario, Model model) {
         model.addAttribute("peliculas", peliculasService.findAll());
         model.addAttribute("salas", getSalas());
+        model.addAttribute("action", "save");
         return "horarios/formHorarios";
     }
 
     @PostMapping("/save")
-    public String guardar(@ModelAttribute Horario horario, BindingResult bResult, Model model) {
+    public String save(@ModelAttribute Horario horario, BindingResult bResult, Model model) {
         if (bResult.hasErrors()) {
             System.err.println("Error al procesar formulario: ");
             bResult.getAllErrors().forEach(System.err::println);
@@ -52,8 +54,37 @@ public class HorariosController {
             model.addAttribute("salas", getSalas());
             return "horarios/formHorarios";
         }
-        horario.setPelicula(peliculasService.buscarPorId(horario.getPelicula().getId()));
-        horariosService.guardar(horario);
+        horario.setPelicula(peliculasService.findById(horario.getPelicula().getId()));
+        horariosService.save(horario);
+        return "redirect:/horarios/";
+    }
+    
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+    	model.addAttribute("horario", horariosService.findById(id));
+        model.addAttribute("peliculas", peliculasService.findAll());
+        model.addAttribute("salas", getSalas());
+        model.addAttribute("action", "update");
+        return "horarios/formHorarios";
+    }
+    
+    @PostMapping("/update")
+    public String update(@ModelAttribute Horario horario, BindingResult bResult, Model model) {
+        if (bResult.hasErrors()) {
+            System.err.println("Error al procesar formulario: ");
+            bResult.getAllErrors().forEach(System.err::println);
+            model.addAttribute("peliculas", peliculasService.findAll());
+            model.addAttribute("salas", getSalas());
+            return "horarios/formHorarios";
+        }
+        horario.setPelicula(peliculasService.findById(horario.getPelicula().getId()));
+        horariosService.update(horario);
+        return "redirect:/horarios/";
+    }
+    
+    @GetMapping("/delete/{id}")
+    public String edit(@PathVariable("id") int id) {
+    	horariosService.deleteById(id);
         return "redirect:/horarios/";
     }
 

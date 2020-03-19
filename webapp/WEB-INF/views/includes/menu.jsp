@@ -14,11 +14,12 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/peliculas/">Peliculas</a></li>
+				<li><a href="${pageContext.request.contextPath}/peliculas/paginate?page=0">Peliculas</a></li>
 				<li><a href="${pageContext.request.contextPath}/banners/">Banners</a></li>
+				<li><a href="${pageContext.request.contextPath}/noticias/">Noticias</a></li>
 				<li><a href="${pageContext.request.contextPath}/contacto/">Contacto</a></li>
 				<li><a href="${pageContext.request.contextPath}/horarios/">Horarios</a></li>
-				<li><a href="#">Acerca</a></li>
+				<li><a href="${pageContext.request.contextPath}/acerca">Acerca</a></li>
 				<li><a href="#">Login</a></li>
 			</ul>
 		</div>

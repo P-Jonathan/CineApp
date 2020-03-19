@@ -7,10 +7,14 @@ import com.sysone.app.model.Banner;
 public interface IBannerService {
 
 	List<Banner> findAll();
+	
+	Banner findById(int idBanner);
 
-	void guardar(Banner banner);
+	void save(Banner banner);
 
-	void actualizar(Banner banner);
+	void update(Banner banner);
 
-	void eliminar(Banner banner);
+	void delete(Banner banner);
+	
+	void deleteById(int idBanner);
 }

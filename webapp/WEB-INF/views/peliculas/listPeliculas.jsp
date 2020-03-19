@@ -47,7 +47,7 @@
 					<th>Estatus</th>
 					<th>Opciones</th>
 				</tr>
-				<c:forEach items="${peliculas}" var="pelicula">
+				<c:forEach items="${peliculas.content}" var="pelicula">
 					<tr>
 						<td>${pelicula.titulo}</td>
 						<td>${pelicula.genero}</td>
@@ -64,14 +64,31 @@
 									<span class="label label-danger">${pelicula.estatus}</span>
 								</c:otherwise>
 							</c:choose></td>
-						<td><a href="#" class="btn btn-success btn-sm" role="button"
-							title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a href="#" class="btn btn-danger btn-sm" role="button"
-							title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
-						</td>
+						<td><a
+							href="${pageContext.request.contextPath}/peliculas/edit/${pelicula.id}"
+							class="btn btn-success btn-sm" role="button" title="Edit"><span
+								class="glyphicon glyphicon-pencil"></span></a> <a
+							href="${pageContext.request.contextPath}/peliculas/delete/${pelicula.id}"
+							class="btn btn-danger btn-sm" role="button" title="Eliminar"
+							onclick="return confirm('¿Esta seguro?')"><span
+								class="glyphicon glyphicon-trash"></span></a></td>
 					</tr>
 				</c:forEach>
 			</table>
+
+			<nav aria-label="">
+				<ul class="pager">
+					<c:if test="${actualPage > 0}">
+						<li><a
+							href="${pageContext.request.contextPath}/peliculas/paginate?page=${actualPage - 1}">Anterior</a></li>
+					</c:if>
+					<c:if test="${actualPage < maxPage}">
+						<li><a
+							href="${pageContext.request.contextPath}/peliculas/paginate?page=${actualPage + 1}">Siguiente</a></li>
+					</c:if>
+				</ul>
+			</nav>
+
 		</div>
 
 		<hr class="featurette-divider">

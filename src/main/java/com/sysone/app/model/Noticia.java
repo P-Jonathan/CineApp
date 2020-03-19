@@ -16,7 +16,6 @@ public class Noticia {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	private String titulo;
 	private Date fecha;
 	private String estatus;
@@ -34,12 +33,12 @@ public class Noticia {
 		this.detalle = detalle;
 	}
 
-	public int getIdNoticia() {
+	public int getId() {
 		return id;
 	}
 
-	public void setIdNoticia(int idNoticia) {
-		this.id = idNoticia;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
@@ -76,7 +75,7 @@ public class Noticia {
 
 	@Override
 	public String toString() {
-		return "Noticia [idNoticia=" + id + ", titulo=" + titulo + ", fecha=" + fecha + ", estatus=" + estatus
-				+ ", detalle=" + detalle + "]";
+		return "Noticia [id=" + id + ", titulo=" + titulo + ", fecha=" + fecha + ", estatus=" + estatus + ", detalle="
+				+ detalle + "]";
 	}
 }

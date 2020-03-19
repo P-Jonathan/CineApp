@@ -73,67 +73,9 @@
 
 		</c:if>
 
-		<div class="row page-header">
-			<div class="col-lg-12">
-				<h2 class="text text-center">
-					<span class="label label-success">EN CARTELERA</span>
-				</h2>
-				<form class="form-inline"
-					action="${pageContext.request.contextPath}/search" method="post">
-					<div class="form-group">
-						<label for="fecha">Fecha: </label> <select id="fecha" name="fecha"
-							class="form-control">
-							<c:if test="isHome">
-								<option value="#" selected>--</option>
-							</c:if>
-							<c:forEach items="${fechas}" var="fecha">
-								<c:choose>
-									<c:when test="${fecha == fechaBusqueda}">
-										<option value="${fecha}" selected>${fecha}</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${fecha}">${fecha}</option>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</select>
-					</div>
-					<button type="submit" class="btn btn-primary">Filtrar</button>
-				</form>
-			</div>
-		</div>
 
 		<!-- Marketing messaging -->
 		<div class="container marketing">
-
-			<div class="row">
-				<c:forEach items="${peliculas}" var="pelicula">
-					<div class="col-xs-12 col-sm-6 col-md-3">
-						<img class="img-rounded"
-							src="${urlPublic}/images/${pelicula.imagen}"
-							alt="Generic placeholder image" width="150" height="200" />
-						<h4>${pelicula.titulo}</h4>
-						<h4>
-							<span class="label label-default">${pelicula.clasificacion}</span>
-							<span class="label label-default">${pelicula.duracion} min</span>
-							<span class="label label-default">${pelicula.genero}</span>
-						</h4>
-						<p>
-							<c:choose>
-								<c:when test="${isHome}">
-									<a class="btn btn-sm btn-primary"
-										href="detalles/${pelicula.id}"> Consutar horarios </a>
-								</c:when>
-								<c:otherwise>
-									<a class="btn btn-sm btn-primary"
-										href="detalles/${pelicula.id}/${fechaBusqueda}"> Consutar
-										horarios </a>
-								</c:otherwise>
-							</c:choose>
-						</p>
-					</div>
-				</c:forEach>
-			</div>
 
 			<div class="page-header">
 				<h2 class="text text-center">
@@ -144,7 +86,7 @@
 			<div class="row">
 
 				<div class="col-sm-12 blog-main">
-					<c:forEach items="${noticias}" var="noticia" begin="0" end="2">
+					<c:forEach items="${noticias}" var="noticia">
 						<div class="blog-post">
 							<h3 class="blog-post-title">${noticia.titulo}</h3>
 
@@ -154,14 +96,22 @@
 								</span>
 							</p>
 							<p>${noticia.detalle}</p>
+							
+							<div class="btn-toolbar" role="toolbar">
+								<div class="btn-group justify-content-between" role="group">
+									<a href="${pageContext.request.contextPath}/noticias/edit/${noticia.id}" class="btn btn-info">Editar</a>
+									<a href="${pageContext.request.contextPath}/noticias/delete/${noticia.id}" class="btn btn-danger" onclick="return confirm('¿Esta seguro de borrar esta noticia?')">Borrar</a>
+								</div>
+							</div>
 							<hr class="featurette-divider">
 						</div>
 					</c:forEach>
+
+					<a href="${pageContext.request.contextPath}/noticias/create" class="btn btn-block btn-success">Crear noticia</a>
 				</div>
 			</div>
 
 		</div>
-
 
 		<jsp:include page="/WEB-INF/views/includes/footer.jsp" />
 

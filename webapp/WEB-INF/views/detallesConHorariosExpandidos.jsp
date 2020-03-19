@@ -70,15 +70,11 @@
 					</div>
 
 					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								<span class="label label-success">${fecha}</span>
-							</h3>
-						</div>
 						<div class="panel-body">
 							<table class="table table-striped">
 								<thead>
 									<tr>
+										<th>Fecha</th>
 										<th>Hora</th>
 										<th>Sala</th>
 										<th>Precio</th>
@@ -87,6 +83,8 @@
 								<tbody>
 									<c:forEach items="${horarios}" var="horario">
 										<tr>
+											<td><fmt:formatDate value="${horario.fecha}"
+													pattern="dd-MM-yy" /></td>
 											<td>${horario.hora}</td>
 											<td>${horario.sala}</td>
 											<td>$${horario.precio}</td>

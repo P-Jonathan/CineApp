@@ -45,8 +45,10 @@
 	                <td>${horario.sala}</td>
 	                <td>${horario.precio}</td>
 	                <td>
-						<a href="#" class="btn btn-success btn-sm" role="button" title="Edit" ><span class="glyphicon glyphicon-pencil"></span></a>
-						<a href="#" class="btn btn-danger btn-sm" role="button" title="Delete" ><span class="glyphicon glyphicon-trash"></span></a>
+						<a href="${pageContext.request.contextPath}/horarios/edit/${horario.id}" class="btn btn-success btn-sm" role="button" title="Edit" ><span class="glyphicon glyphicon-pencil"></span></a>
+						<a href="${pageContext.request.contextPath}/horarios/delete/${horario.id}"
+						 class="btn btn-danger btn-sm" role="button" title="Delete" 
+						 onclick="return confirm('¿Esta seguro?')"><span class="glyphicon glyphicon-trash"></span></a>
 					</td>
 	            </tr>
             </c:forEach>

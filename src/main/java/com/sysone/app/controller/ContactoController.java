@@ -21,7 +21,7 @@ public class ContactoController {
 
 	@GetMapping("/contacto")
 	public String mostrarFormulario(@ModelAttribute Contacto contacto, Model model) {
-		model.addAttribute("generos", peliculasService.buscarGeneros());
+		model.addAttribute("generos", peliculasService.findGeneros());
 		model.addAttribute("tipos", getTipoNotificaciones());
 		return "formContacto";
 	}

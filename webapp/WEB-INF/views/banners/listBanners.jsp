@@ -52,10 +52,12 @@
 								pattern="dd-MM-yyyy" /></td>
 						<td>${banner.archivo}</td>
 						<td><span class="label label-success">${banner.estatus}</span></td>
-						<td><a href="#" class="btn btn-success btn-sm" role="button"
+						<td>
+							<a href="${pageContext.request.contextPath}/banners/edit/${banner.id}" class="btn btn-success btn-sm" role="button"
 							title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a href="#" class="btn btn-danger btn-sm" role="button"
-							title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+							
+							<a href="${pageContext.request.contextPath}/banners/delete/${banner.id}" class="btn btn-danger btn-sm" role="button"
+							title="Eliminar" onclick="return confirm('¿Esta seguro?')"><span class="glyphicon glyphicon-trash"></span></a>
 						</td>
 					</tr>
 				</c:forEach>

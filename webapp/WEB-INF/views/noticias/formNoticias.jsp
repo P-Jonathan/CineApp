@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <spring:url value="/resources" var="urlPublic" />
 <!DOCTYPE html>
 <html lang="en">
@@ -27,22 +28,25 @@
 			<span class="label label-success">Datos de la Noticia</span>
 		</h3>
 
-		<form action="${pageContext.request.contextPath}/noticias/save" method="POST">
+		<form:form
+			action="${pageContext.request.contextPath}/noticias/${action}"
+			method="POST" modelAttribute="noticia">
 			<div class="row">
+				<form:hidden path="id" />
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="titulo">Titulo</label> <input type="text"
-							class="form-control" name="titulo" id="titulo"
-							required="required" />
+						<label for="titulo">Titulo</label>
+						<form:input type="text" class="form-control" path="titulo"
+							id="titulo" required="required" />
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<label for="estatus">Estatus</label> <select id="estatus"
-							name="estatus" class="form-control">
-							<option value="Activa">Activa</option>
-							<option value="Inactiva">Inactiva</option>
-						</select>
+						<label for="estatus">Estatus</label>
+						<form:select id="estatus" path="estatus" class="form-control">
+							<form:option value="Activa">Activa</form:option>
+							<form:option value="Inactiva">Inactiva</form:option>
+						</form:select>
 					</div>
 				</div>
 			</div>
@@ -50,14 +54,14 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label for="detalle">Detalles</label>
-						<textarea class="form-control" name="detalle" id="detalle"
-							rows="10"></textarea>
+						<form:textarea class="form-control" path="detalle" id="detalle"
+							rows="10"></form:textarea>
 					</div>
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-danger">Guardar</button>
-		</form>
+			<form:button type="submit" class="btn btn-danger">Guardar</form:button>
+		</form:form>
 
 		<hr class="featurette-divider">
 
