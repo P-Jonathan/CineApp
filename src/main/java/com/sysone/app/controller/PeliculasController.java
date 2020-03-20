@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,12 +42,13 @@ public class PeliculasController {
 //	}
 
 	@GetMapping("/paginate")
-	public String indexPaginate(Model model, Pageable page) {
-		int actualPage = page.getPageNumber();
-		int maxPage = Math.round(peliculasService.count() / 5);
-		model.addAttribute("actualPage", actualPage);
-		model.addAttribute("maxPage", maxPage);
-		model.addAttribute("peliculas", peliculasService.findAll(page));
+	public String indexPaginate(Model model, Pageable pageable) {
+		Page<Pelicula> page = peliculasService.findAll(pageable);
+		int paginaActual = page.getNumber();
+		model.addAttribute("peliculas", page);
+		model.addAttribute("paginaActual", paginaActual);
+		model.addAttribute("esPrimerPagina", page.isFirst());
+		model.addAttribute("esUltimaPagina", page.isLast());
 		return "peliculas/listPeliculas";
 	}
 
@@ -72,7 +74,7 @@ public class PeliculasController {
 
 		peliculasService.save(pelicula);
 		rAttributes.addFlashAttribute("message", "La pelicula " + pelicula.getTitulo() + " se añadio correctamente.");
-		return "redirect:/peliculas/";
+		return "redirect:/peliculas/paginate?page=0";
 	}
 
 	@PostMapping("/update")
@@ -91,7 +93,7 @@ public class PeliculasController {
 
 		peliculasService.update(pelicula);
 		rAttributes.addFlashAttribute("message", "La pelicula " + pelicula.getTitulo() + " se añadio correctamente.");
-		return "redirect:/peliculas/";
+		return "redirect:/peliculas/paginate?page=0";
 	}
 
 	@GetMapping("/edit/{id}")
@@ -106,7 +108,7 @@ public class PeliculasController {
 	public String delte(@PathVariable("id") int idPelicula, RedirectAttributes rAttributes) {
 		peliculasService.deleteById(idPelicula);
 		rAttributes.addAttribute("message", "Se ha eliminado la pelicula con id: " + idPelicula);
-		return "redirect:/peliculas/";
+		return "redirect:/peliculas/paginate?page=0";
 	}
 
 	@ModelAttribute("generos")

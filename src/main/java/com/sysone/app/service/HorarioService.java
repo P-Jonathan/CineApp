@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +23,22 @@ public class HorarioService implements IHorariosService {
 	public List<Horario> findAll() {
 		return horariosRepository.findAll();
 	}
-	
+
+	@Override
+	public Page<Horario> findAll(Pageable pageable) {
+		return horariosRepository.findAll(pageable);
+	}
+
 	@Override
 	public Horario findById(int id) {
 		return horariosRepository.findById(id).get();
 	}
-	
+
 	@Override
-	public List<Horario> findAllAndSortByFecha(){
+	public List<Horario> findAllAndSortByFecha() {
 		return horariosRepository.findAll(Sort.by("fecha").ascending()).stream().collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public List<Horario> findByPelicula_IdAndFechaOrderByHora(int idPelicula, Date fecha) {
 		return horariosRepository.findByPelicula_IdAndFechaOrderByHora(idPelicula, fecha);

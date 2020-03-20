@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
@@ -14,13 +15,30 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/peliculas/paginate?page=0">Peliculas</a></li>
-				<li><a href="${pageContext.request.contextPath}/banners/">Banners</a></li>
-				<li><a href="${pageContext.request.contextPath}/noticias/">Noticias</a></li>
-				<li><a href="${pageContext.request.contextPath}/contacto/">Contacto</a></li>
-				<li><a href="${pageContext.request.contextPath}/horarios/">Horarios</a></li>
-				<li><a href="${pageContext.request.contextPath}/acerca">Acerca</a></li>
-				<li><a href="#">Login</a></li>
+				<sec:authorize access="hasAnyAuthority('GERENTE')">
+					<li><a href="${pageContext.request.contextPath}/peliculas/paginate?page=0">Peliculas</a></li>
+					<li><a href="${pageContext.request.contextPath}/noticias/">Noticias</a></li>
+					<li><a href="${pageContext.request.contextPath}/horarios/paginate?page=0">Horarios</a></li>
+					<li><a href="${pageContext.request.contextPath}/banners/">Banners</a></li>
+					<li><a href="${pageContext.request.contextPath}/contacto/">Contacto</a></li>
+					<li><a href="${pageContext.request.contextPath}/acerca">Acerca</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin">Administracion</a></li>
+					<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+				</sec:authorize>
+				<sec:authorize access="hasAnyAuthority('EDITOR')">
+					<li><a href="${pageContext.request.contextPath}/peliculas/paginate?page=0">Peliculas</a></li>
+					<li><a href="${pageContext.request.contextPath}/noticias/">Noticias</a></li>
+					<li><a href="${pageContext.request.contextPath}/horarios/paginate?page=0">Horarios</a></li>
+					<li><a href="${pageContext.request.contextPath}/contacto/">Contacto</a></li>
+					<li><a href="${pageContext.request.contextPath}/acerca">Acerca</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin">Administracion</a></li>
+					<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAnonymous()">
+					<li><a href="${pageContext.request.contextPath}/contacto/">Contacto</a></li>
+					<li><a href="${pageContext.request.contextPath}/acerca">Acerca</a></li>
+					<li><a href="${pageContext.request.contextPath}/login">Login</a></li>
+				</sec:authorize>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->

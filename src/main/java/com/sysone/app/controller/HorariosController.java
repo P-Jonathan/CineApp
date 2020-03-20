@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,8 +36,19 @@ public class HorariosController {
     @GetMapping("/")
     public String list(Model model) {
         model.addAttribute("horarios", horariosService.findAll());
-        return "horarios/listHorarios";
+        return "horarios/listHorarios/paginate?page=0";
     }
+    
+    @GetMapping("/paginate")
+	public String indexPaginate(Model model, Pageable pageable) {
+		Page<Horario> page = horariosService.findAll(pageable);
+		int paginaActual = page.getNumber();
+		model.addAttribute("horarios", page.toList());
+		model.addAttribute("paginaActual", paginaActual);
+		model.addAttribute("esPrimerPagina", page.isFirst());
+		model.addAttribute("esUltimaPagina", page.isLast());
+        return "horarios/listHorarios";
+	}
 
     @GetMapping("/create")
     public String create(@ModelAttribute Horario horario, Model model) {
@@ -56,7 +69,7 @@ public class HorariosController {
         }
         horario.setPelicula(peliculasService.findById(horario.getPelicula().getId()));
         horariosService.save(horario);
-        return "redirect:/horarios/";
+        return "redirect:/horarios/paginate?page=0";
     }
     
     @GetMapping("/edit/{id}")
@@ -79,13 +92,13 @@ public class HorariosController {
         }
         horario.setPelicula(peliculasService.findById(horario.getPelicula().getId()));
         horariosService.update(horario);
-        return "redirect:/horarios/";
+        return "redirect:/horarios/paginate?page=0";
     }
     
     @GetMapping("/delete/{id}")
     public String edit(@PathVariable("id") int id) {
     	horariosService.deleteById(id);
-        return "redirect:/horarios/";
+        return "redirect:/horarios/paginate?page=0";
     }
 
     public List<String> getSalas() {

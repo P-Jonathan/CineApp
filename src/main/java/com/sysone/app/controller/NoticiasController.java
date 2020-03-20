@@ -18,7 +18,7 @@ public class NoticiasController {
 
 	@Autowired
 	private INoticiasService noticiasService;
-
+	
 	@GetMapping("/")
 	public String list(Model model) {
 		model.addAttribute("noticias", noticiasService.findAll());

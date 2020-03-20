@@ -19,69 +19,12 @@
 
 	<div class="container theme-showcase" role="main">
 
-		<c:if test="${banners != null}">
-			<!-- Carousel
-    ================================================== -->
-			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-				<!-- Indicators -->
-
-
-				<ol class="carousel-indicators">
-					<c:forEach items="${banners}" var="banner" varStatus="status">
-						<c:choose>
-							<c:when test="${status.index == 0}">
-								<li data-target="#myCarousel" data-slide-to="${status.index}"
-									class="active"></li>
-							</c:when>
-							<c:otherwise>
-								<li data-target="#myCarousel" data-slide-to="${status.index}"></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</ol>
-				<!-- Image Size 1140 x 250 -->
-				<div class="carousel-inner" role="listbox">
-					<c:forEach items="${banners}" var="banner" varStatus="status">
-						<c:choose>
-							<c:when test="${status.index == 0}">
-
-								<div class="item active">
-									<img src="${urlPublic}/images/${banner.archivo}" alt="Slide"
-										title="Some text">
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="item">
-									<img src="${urlPublic}/images/${banner.archivo}" alt="Slide"
-										title="Some text">
-								</div>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</div>
-				<a class="left carousel-control" href="#myCarousel" role="button"
-					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a> <a class="right carousel-control" href="#myCarousel" role="button"
-					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-			<!-- /.carousel -->
-
-		</c:if>
-
-
 		<!-- Marketing messaging -->
 		<div class="container marketing">
 
-			<div class="page-header">
-				<h2 class="text text-center">
-					<span class="label label-success">Noticias y novedades</span>
-				</h2>
-			</div>
+			<h3>Listado de Peliculas</h3>
+
+			<hr class="featurette-divider">
 
 			<div class="row">
 
@@ -96,18 +39,23 @@
 								</span>
 							</p>
 							<p>${noticia.detalle}</p>
-							
+
 							<div class="btn-toolbar" role="toolbar">
 								<div class="btn-group justify-content-between" role="group">
-									<a href="${pageContext.request.contextPath}/noticias/edit/${noticia.id}" class="btn btn-info">Editar</a>
-									<a href="${pageContext.request.contextPath}/noticias/delete/${noticia.id}" class="btn btn-danger" onclick="return confirm('¿Esta seguro de borrar esta noticia?')">Borrar</a>
+									<a
+										href="${pageContext.request.contextPath}/noticias/edit/${noticia.id}"
+										class="btn btn-info">Editar</a> <a
+										href="${pageContext.request.contextPath}/noticias/delete/${noticia.id}"
+										class="btn btn-danger"
+										onclick="return confirm('¿Esta seguro de borrar esta noticia?')">Borrar</a>
 								</div>
 							</div>
 							<hr class="featurette-divider">
 						</div>
 					</c:forEach>
 
-					<a href="${pageContext.request.contextPath}/noticias/create" class="btn btn-block btn-success">Crear noticia</a>
+					<a href="${pageContext.request.contextPath}/noticias/create"
+						class="btn btn-block btn-success">Crear noticia</a>
 				</div>
 			</div>
 

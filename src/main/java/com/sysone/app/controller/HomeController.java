@@ -1,6 +1,5 @@
 package com.sysone.app.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +52,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/search")
-	public String search(Model model, @RequestParam("fecha") String fecha) throws ParseException {
+	public String search(Model model, @RequestParam("fecha") String fecha) {
 		List<String> fechas = horariosService.findAllAndSortByFecha().stream().map(h -> h.getFecha())
 				.map(d -> formater.format(d)).collect(Collectors.toList());
 
@@ -108,7 +107,7 @@ public class HomeController {
 	public String acerca() {
 		return "acerca";
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");

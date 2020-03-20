@@ -1,7 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<spring:url value="/resources/" var="urlPublic"/>
+<spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,6 +53,27 @@
 	            </tr>
             </c:forEach>
         </table>
+        
+        <nav aria-label="Page navigation">
+				<ul class="pagination">
+					<c:choose>
+						<c:when test="${esPrimerPagina == false}">
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/horarios/paginate?page=${paginaActual - 1}">Anterior</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${esUltimaPagina == false}">
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/horarios/paginate?page=${paginaActual + 1}">Siguiente</a></li>	
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="#">Siguiente</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</nav>
       </div>
       <hr class="featurette-divider">
 
